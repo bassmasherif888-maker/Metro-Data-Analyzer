@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv/
+.streamlit/secrets.toml
+*.xlsx
+*.log
+
+/Metro-Intelligence-Ready.zip
