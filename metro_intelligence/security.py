@@ -1,4 +1,4 @@
-"""OIDC identity and explicit role assignment; no anonymous business data access."""
+"""OIDC identity and explicit role assignment; explicit public demo or authenticated private access."""
 def role_for(email, verified, roles):
  if verified is not True or not isinstance(email,str): return None
  role=roles.get(email.casefold())
@@ -8,8 +8,14 @@ def local_access_allowed(enabled, deployment, address, remote_ip):
  return (enabled == '1' and deployment != 'team'
          and address == '127.0.0.1' and remote_ip in ('127.0.0.1', '::1'))
 
-def require_access(st):
+def require_access(st, public=False):
  import os
+ if public:
+  if os.environ.get('METRO_DEPLOYMENT') == 'team':
+   st.error('Public demo entrypoint is disabled in team deployments.'); st.stop()
+  st.warning('نسخة عامة بدون تسجيل دخول — استخدمي بيانات تجريبية أو غير سرية فقط. الملفات تخص جلستك ولا تُعرض تلقائيًا لباقي الزوار.')
+  return 'public'
+
  if os.environ.get('METRO_LOCAL_MODE') == '1':
   if not local_access_allowed('1', os.environ.get('METRO_DEPLOYMENT', ''),
                               st.get_option('server.address'), st.context.ip_address):

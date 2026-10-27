@@ -48,3 +48,9 @@ Neither mode invents profit, orders, AOV, unique customers, forecasts, missing p
 The original MVP startup was executed successfully before changes. Tests now use clearly synthetic five-sheet workbooks to check mapping, totals, corrupted/missing values, unsupported questions, injection rejection, evidence, roles, export escaping, mocked AI contract, anonymous locking, and dashboard/query interaction. Authentication in the authorized UI test is mocked; it does not prove live OIDC.
 
 The supplied January–September workbook exceeded the attachment tool's 32 MiB transfer limit and has not been analyzed. Provide split or reduced exports to validate production figures and source semantics. No real business metrics have been asserted. File upload has compressed/expanded size guards, but large-workbook resource isolation should be assessed before production use. This is a tested development foundation, not a production security certification.
+
+## Public demonstration site (no sign-in)
+
+For non-confidential data, deploy `metro_intelligence/public_app.py` from repository branch `main` on Streamlit Community Cloud. Use Python 3.12 in Advanced settings. The root requirements.txt installs the tested lockfile. No OIDC credentials or secrets are needed. This entrypoint shows a public-data warning and allows anonymous uploads and queries; it does not create a shared gallery or retain workbooks on disk. Uploads belong to the visitor's session. Public visitors have no CSV export controls. Do not use confidential workbooks. External AI remains optional and requires separate approved server configuration and user opt-in. `app.py` remains the private entrypoint; team deployments reject the public entrypoint.
+
+From this folder, local public-demo command: `streamlit run public_app.py`. Publishing still requires a Streamlit Cloud account connected to GitHub; a Git push alone does not create a live site.

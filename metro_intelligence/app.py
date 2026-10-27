@@ -6,7 +6,7 @@ from assistant import ai_plan
 
 st.set_page_config(page_title='Metro Intelligence',page_icon='📊',layout='wide')
 st.title('Metro | E-commerce Intelligence Hub')
-role=require_access(st)
+role=require_access(st, public=globals().get("PUBLIC_DEMO", False))
 st.caption('Executive decisions grounded in recorded SIAM data • ذكاء أعمال مترو')
 st.info('Sales are recorded SIAM sales, not profit or verified net revenue. Orders, AOV and unique customers are unavailable. Observed patterns do not establish causes.')
 upload=st.file_uploader('Upload a private SIAM workbook / ارفع ملف المبيعات',type=['xlsx'],max_upload_size=200)
